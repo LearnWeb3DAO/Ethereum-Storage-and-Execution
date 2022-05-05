@@ -144,7 +144,7 @@ Let's take a look at the high level execution model within the EVM. This diagram
 
 The EVM contains a Program Counter (PC). The PC, also sometimes called the instruction pointer, is a value that points to where a computer is as part of code execution.
 
-If you think of the EVM code as a list of instructions to run, the PC will point to the instruction that is currently being run. Initially, the PC points at zero, i.e. the first instruction. When that is run, the PC gets updated to point to the next instruction, and so on.
+If you think of the EVM code as a list of instructions to run, the PC will point to the instruction that needs to be run. Initially, the PC points at zero, i.e. the first instruction. When that is run, the PC gets updated to point to the next instruction, and so on.
 
 The instruction being pointed to by the PC executes certain operations with the given data. These operations happen on the stack, and the stack can read/write values from both the memory and the account storage.
 
