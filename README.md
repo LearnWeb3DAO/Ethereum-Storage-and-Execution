@@ -29,6 +29,8 @@ The World State in Ethereum is a mapping between addresses and account states. E
 
 Each block essentially manipulates multiple account states, thereby manipulating the overall world state of Ethereum.
 
+<Quiz questionId="789f6cc0-6057-4bfe-a7d9-b992b22ac121" />
+
 ## Account State
 
 Alright, so the world state is comprised of various account states. What is an account state?
@@ -38,6 +40,8 @@ Alright, so the world state is comprised of various account states. What is an a
 The account state contains a few common things, like the nonce and the balance (in ETH). Additionally, smart contracts also contain a storage hash and a code hash. The two hashes act as references to a separate state tree, which store state variables and the bytecode of the smart contract respectively.
 
 ![](https://i.imgur.com/K9L1D0V.png)
+
+<Quiz questionId="87a8afbf-a514-444e-bcd9-357d9770f659" />
 
 Recall that there are two types of accounts in Ethereum. Externally owned accounts (e.g. Coinbase Wallets, Metamask Wallets, etc.) and Smart Contract Accounts. 
 
@@ -59,6 +63,8 @@ On the other hand, for all other transactions, i.e. message calls, the account s
 
 ![](https://i.imgur.com/megkubb.png)
 
+<Quiz questionId="3ce806f1-9460-42f4-ab9b-dcb75389fb60" />
+
 ## Messages
 
 Messages in Ethereum are passed between two accounts. They consist primarily of two things - `data` and `value`.
@@ -79,6 +85,8 @@ The EVM has a stack-based architecture. A massive simplification of modern CPU a
 
 ![](https://i.imgur.com/5VlEVyv.png)
 
+<Quiz questionId="e618089e-bb62-49d8-93b8-84f4761f43cf" />
+
 The smart contract code, or EVM code, lives in an immutable storage location within the EVM. 
 
 For runtime calculations, i.e. local variables and such, the EVM has access to two storage locations - the stack and the memory (i.e. heap). 
@@ -89,16 +97,21 @@ The EVM also has access to the persistent world state i.e. account state to read
 
 The stack is a simple stack that supports PUSH/POP operations, and each stack element is 256 bits (32 bytes) and has a max depth of 1024 elements. 
 
+<Quiz questionId="dcc8607a-c0de-4797-83e0-92393a77a89d" />
+
 The memory (or heap) is a linear memory structure, and can store dynamic sized data i.e. strings and dynamic arrays during runtime.
 
 The account storage is part of the world state, and is the persistent storage where any changes made will continue to stay even after the transaction is done executing.
+
+<Quiz questionId="9d6d88a7-4c3e-4825-9ce2-75dc05654fb0" />
 
 ## Stack
 
 ![](https://i.imgur.com/18sq0gl.png)
 
-
 Stack is a Last-in First-out data structure used to hold temporary values. Think of it like a stack of plates. The plate you stack on the top, will be the first one that gets removed. Stacks are used for fast operations on fixed size data across computer science, and EVM is no different.
+
+<Quiz questionId="0efbaa36-ea49-47bf-be9c-568ca95ba520" />
 
 ![](https://i.imgur.com/A0GXLx5.png)
 
@@ -106,9 +119,13 @@ All operations from the EVM are run on the stack. The EVM stack supports doing o
 
 > Fun fact: In Solidity, you will get a compilation error if you write a function that has more than 16 local variables declared in it. Because the stack cannot work with data beyond the top 16 elements, having more than 16 variables means that operations on some of them will not be possible within the EVM.
 
+<Quiz questionId="a2aa0383-11d4-4e6c-8b4f-da6c4a091184" />
+
 ## Memory
 
 The EVM memory is a linearly addressed memory, that can be addressed at the byte level. You can store either 8 bits (1 byte) or 256 bits (32 bytes) at a time in memory, but can only read from memory in chunks of 256 bits (32 bytes). Memory is used to store dymanic values in solidity like variable length arrays, strings etc.
+
+<Quiz questionId="1720f951-46a3-42d8-81e3-069769bc23fe" />
 
 Initially, all memory locations have the value of zero. During transaction execution however, the values can be updated and modified.
 
@@ -148,11 +165,13 @@ If you think of the EVM code as a list of instructions to run, the PC will point
 
 The instruction being pointed to by the PC executes certain operations with the given data. These operations happen on the stack, and the stack can read/write values from both the memory and the account storage.
 
+<Quiz questionId="6cc83887-f924-4e6d-81ad-3c752bb43168" />
+
 I've used this analogy before and I will use it again - think of memory like your RAM and the account storage like your hard disk. The stack (instruction processor) can read/write data from the RAM and the Hard Disk, but only changes made to the Hard Disk data will continue to persist after the code is finished running, whereas the memory will be cleared.
 
 So far, this is quite similar to an actual CPU architecture. For those of you with formal Computer Science backgrounds, if you ever took a hardware or computer processors class in college, you must have been taught something similar about how actual processors work. The EVM behaves very similarly.
 
-But, there is one special thing here. The EVM also stores a  counter for how much gas is available. Every operation executed by the EVM costs a certain amount of gas, and the EVM will keep executing operations as long as there is enough gas to run the operation. If the gas available ever goes below what is necessary to keep running, the entire execution will stop and cause a failed transaction. As we taught before, this is done to avoid having infinite loops within the EVM which could bring the Ethereum network to a halt. Therefore, for complex transactions, you need to pay higher gas to cover the execution costs.
+But, there is one special thing here. The EVM also stores a counter for how much gas is available. Every operation executed by the EVM costs a certain amount of gas, and the EVM will keep executing operations as long as there is enough gas to run the operation. If the gas available ever goes below what is necessary to keep running, the entire execution will stop and cause a failed transaction. As we taught before, this is done to avoid having infinite loops within the EVM which could bring the Ethereum network to a halt. Therefore, for complex transactions, you need to pay higher gas to cover the execution costs.
 
 ## Gas during Execution
 
@@ -172,3 +191,5 @@ For now, make sure you go say hi on Discord 😉 and share your progress.
 
 ## References
 - [EVM Illustrated](https://takenobu-hs.github.io/downloads/ethereum_evm_illustrated.pdf)
+
+<SubmitQuiz />
