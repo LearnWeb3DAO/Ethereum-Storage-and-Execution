@@ -1,6 +1,6 @@
 # Ethereum Storage and Execution
 
-We have been writing smart contracts over the last few tracks, and briefly mentioned that Ethereum smart contracts run within this thing called the Ethereum Virtual Machine (EVM). 
+We have been writing smart contracts over the last few tracks, and briefly mentioned that Ethereum smart contracts run within this thing called the Ethereum Virtual Machine (EVM).
 
 We also briefly mentioned in passing that EVM is capable of running certain OPCODES, and deals with data present either in the stack or heap. If you have a formal computer science background, that may have made sense to you, but for everyone else, what does this actually mean? 🤔
 
@@ -9,13 +9,13 @@ In this level, we will dig deeper into the EVM execution engine and how data is 
 ## Recap
 Let's recap a few things we taught in earlier tracks before moving ahead.
 
-Recall that Ethereum works as a transaction-based state machine. Starting at some state `s1`, a transaction manipulates certain data to shift the world state to some state `s2`. 
+Recall that Ethereum works as a transaction-based state machine. Starting at some state `s1`, a transaction manipulates certain data to shift the world state to some state `s2`.
 
 ![](https://i.imgur.com/rYatW2N.png)
 
 To group things together, transactions are packed together in blocks. Generally speaking, each block changes the world state from state `s1` to `s2`, and the conversion is calculated based on the state changes made by every transaction within the block.
 
-When we think of these state changes, Ethereum can be thought of as a state chain. 
+When we think of these state changes, Ethereum can be thought of as a state chain.
 
 ![](https://i.imgur.com/xpjCaDR.png)
 
@@ -43,7 +43,7 @@ The account state contains a few common things, like the nonce and the balance (
 
 <Quiz questionId="87a8afbf-a514-444e-bcd9-357d9770f659" />
 
-Recall that there are two types of accounts in Ethereum. Externally owned accounts (e.g. Coinbase Wallets, Metamask Wallets, etc.) and Smart Contract Accounts. 
+Recall that there are two types of accounts in Ethereum. Externally owned accounts (e.g. Coinbase Wallets, Metamask Wallets, etc.) and Smart Contract Accounts.
 
 EOA's are controlled by private keys, and do not have any EVM code. Contract accounts on the other hand contain EVM code and are controlled by the code itself, and do not have private keys associated with them.
 
@@ -51,15 +51,15 @@ EOA's are controlled by private keys, and do not have any EVM code. Contract acc
 
 There are two types of transactions on Ethereum mainly. Those which create new contracts, and those which just send messages.
 
-Sending messages here implies making a transaction that either transfers ETH, or calls functions on a smart contract. They are just different types of messages that can be sent by an EOA. 
+Sending messages here implies making a transaction that either transfers ETH, or calls functions on a smart contract. They are just different types of messages that can be sent by an EOA.
 
 ![](https://i.imgur.com/uFbAFl1.png)
 
-When a contract creation transaction is made, a new account is added to the world state. The transaction carries with it the bytecode of the contract to be created and the initializing code (i.e. constructor calls). 
+When a contract creation transaction is made, a new account is added to the world state. The transaction carries with it the bytecode of the contract to be created and the initializing code (i.e. constructor calls).
 
 ![](https://i.imgur.com/IFXWeDp.png)
 
-On the other hand, for all other transactions, i.e. message calls, the account state of an existing account is modified following the transaction. 
+On the other hand, for all other transactions, i.e. message calls, the account state of an existing account is modified following the transaction.
 
 ![](https://i.imgur.com/megkubb.png)
 
@@ -81,21 +81,21 @@ Let's talk about the EVM now.
 
 Just like how Java ships with the JVM, and Javascript and Python also have their own runtime environments, Ethereum Smart Contracts' runtime environment is the EVM.
 
-The EVM has a stack-based architecture. A massive simplification of modern CPU architectures. 
+The EVM has a stack-based architecture. A massive simplification of modern CPU architectures.
 
 ![](https://i.imgur.com/5VlEVyv.png)
 
 <Quiz questionId="e618089e-bb62-49d8-93b8-84f4761f43cf" />
 
-The smart contract code, or EVM code, lives in an immutable storage location within the EVM. 
+The smart contract code, or EVM code, lives in an immutable storage location within the EVM.
 
-For runtime calculations, i.e. local variables and such, the EVM has access to two storage locations - the stack and the memory (i.e. heap). 
+For runtime calculations, i.e. local variables and such, the EVM has access to two storage locations - the stack and the memory (i.e. heap).
 
 The EVM also has access to the persistent world state i.e. account state to read and write to e.g. changing state variables within a contract.
 
 ![](https://i.imgur.com/ejRCNaA.png)
 
-The stack is a simple stack that supports PUSH/POP operations, and each stack element is 256 bits (32 bytes) and has a max depth of 1024 elements. 
+The stack is a simple stack that supports PUSH/POP operations, and each stack element is 256 bits (32 bytes) and has a max depth of 1024 elements.
 
 <Quiz questionId="dcc8607a-c0de-4797-83e0-92393a77a89d" />
 
@@ -123,7 +123,7 @@ All operations from the EVM are run on the stack. The EVM stack supports doing o
 
 ## Memory
 
-The EVM memory is a linearly addressed memory, that can be addressed at the byte level. You can store either 8 bits (1 byte) or 256 bits (32 bytes) at a time in memory, but can only read from memory in chunks of 256 bits (32 bytes). Memory is used to store dymanic values in solidity like variable length arrays, strings etc.
+The EVM memory is a linearly addressed memory, that can be addressed at the byte level. You can store either 8 bits (1 byte) or 256 bits (32 bytes) at a time in memory, but can only read from memory in chunks of 256 bits (32 bytes). Memory is used to store dynamic values in solidity like variable length arrays, strings etc.
 
 <Quiz questionId="1720f951-46a3-42d8-81e3-069769bc23fe" />
 
@@ -137,7 +137,7 @@ The persistent account storage is a mapping from 256-bit keys to 256-bit values.
 
 ![](https://i.imgur.com/CS4SseS.png)
 
-The keys within these mappings are often referred to as slots. Each state variable in a smart contract is assigned a slot within the account storage, in the order they were defined. 
+The keys within these mappings are often referred to as slots. Each state variable in a smart contract is assigned a slot within the account storage, in the order they were defined.
 
 So, for a contract that looks like this:
 
@@ -177,7 +177,7 @@ But, there is one special thing here. The EVM also stores a counter for how much
 
 ![](https://i.imgur.com/Q0pZhiA.png)
 
-Highlighting the above points, you can see that the EOA passes a certain amount of gas to the contract account when it sends a message. The EVM code runs and uses up some of the gas. If any gas is left over, it is refunded back to the EOA. 
+Highlighting the above points, you can see that the EOA passes a certain amount of gas to the contract account when it sends a message. The EVM code runs and uses up some of the gas. If any gas is left over, it is refunded back to the EOA.
 
 However, if the EVM code runs out of gas i.e. not enough gas was supplied, the execution would fail and the transaction would fail. No gas is refunded in this case as the EVM still had to execute all those operations to figure out that the gas supplied was too less, so the gas is charged for the work that was done.
 
